@@ -1,0 +1,19 @@
+#gameBoard {
+
+	border: 10px solid black;
+	width: 900px;
+	height: 900px;
+
+}
+
+
+.cell {
+	border: 2px solid black;
+	width: 75px;
+	height: 75px;
+	display: inline-block;
+	padding: 10px;
+	margin: 3px;
+	overflow: hidden;
+}
+

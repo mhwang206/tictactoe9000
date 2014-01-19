@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html x-ng-app="">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script type="text/javascript" src="main.js">
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js">
+	</script>
+
+</head>
+<body>
+
+	<div id="gameBoard"x-ng-controller="gameBoardCtrl">
+
+
+		<div class="row" x-ng-repeat="row in gameBoard">
+			<div class="cell" x-ng-repeat="cell in row track by $index" x-ng-click="attackCell($parent.$index, $index)">
+				{{cell}}
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+
+</body>
+</html>

@@ -1,7 +1,15 @@
-function gameBoardCtrl($scope){
+angular.module("TicTacToe", ["firebase"])
+// function gameBoardCtrl($scope, $firebase){
 
+
+.controller("gameBoardCtrl", function($scope, $firebase){
+	$scope.gameBoard = ['','','','','','','','',''];
+	
 	var trackingBoard = ['','','','','','','','',''];
-
+	var ref = new Firebase("https://tictactoematt.firebaseio.com/");
+	// $scope.messages = $firebase(ref);
+	var myBoard = ref.child("Game 1");
+	myBoard.set({board: $scope.gameBoard, xTurn: true});
 	var winCombo = [[0,1,2],[3,4,5],[6,7,8],
 					[0,3,6],[1,4,7],[2,5,8],
 					[0,4,8],[2,4,6]
@@ -9,7 +17,6 @@ function gameBoardCtrl($scope){
 
 
 
-	$scope.gameBoard = ['','','','','','','','',''];
 
 	var xTurn = true;
 	var gameOver = false;
@@ -88,10 +95,8 @@ function gameBoardCtrl($scope){
 			}
 		}
  	}
-}
+});
 
 
 
-	//if x wins can't click 
-	//clickable only if no one wins 
 

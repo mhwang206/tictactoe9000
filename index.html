@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 
-<html x-ng-app="">
+<html x-ng-app="TicTacToe">
 	<head>
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+		<script src='https://cdn.firebase.com/v0/firebase.js'></script>
+		<script src='https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js'></script>
 		<script type="text/javascript" src="main.js">
 		</script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js">
-		</script>
+
 	</head>
-	<body>
+	<body> 
 
 
 
-		<div id="gameBoard"x-ng-controller="gameBoardCtrl">
+		<div id="gameBoard" x-ng-controller="gameBoardCtrl">
 			<button x-ng-click="reset()">Reset</button>
 			<div class="cell" x-ng-repeat="cell in gameBoard track by $index" x-ng-click="attackCell($index)" x-ng-class="{clear: ($index % 3 == 0)}">
 				{{cell}}

@@ -11,20 +11,23 @@
 		</script>
 
 	</head>
-	<body> 
-
-
-
-		<div id="gameBoard" x-ng-controller="gameBoardCtrl">
-			<button x-ng-click="reset()">Reset</button>
+	<body x-ng-controller="gameBoardCtrl"> 
+		<div id="gameBoard">
 			<div class="cell" x-ng-repeat="cell in gameBoard track by $index" x-ng-click="attackCell($index)" x-ng-class="{clear: ($index % 3 == 0)}">
-				{{cell}}
+				
+				<img src="{{cell}}">
 			</div>
-			<div>
-				Player 1: {{playerOne}}
-				<br />
-				Player 2: {{playerTwo}}
-			<div>
+		</div>
+
+				<div id="playerOne">
+					Player 1: {{playerOne}}
+				</div>
+				<div id="playerTwo">
+					Player 2: {{playerTwo}}
+				</div>
+
+		<div class="button">
+		<button id="reset" x-ng-click="reset()">Reset</button>
 		</div>
 	</body>
 </html>

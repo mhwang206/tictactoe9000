@@ -1,28 +1,40 @@
 body {
-	
+	background-color: #ecf0f1;
+	/*background-image: url("http://4.bp.blogspot.com/-yGnUhQ22Arg/UkN1LqtZEFI/AAAAAAAAAME/cTq8ChUjUDI/s1600/1280px-R-05378R-Take4.jpg");*/
+	background-size: cover;
 }
 
 
 #gameBoard {
 
-	
-	border: 10px solid black;
-	width: 600px;
-	height: 600px;
+	border: 3px dotted black;
+	width: 570px;
+	height: 570px;
+	margin: 0 auto;
+	margin-top: 70px;
 
+}
+
+img {
+	width: 150px;
+	height: 150px;
 }
 
 
 .cell {
 	border: 2px solid black;
-	width: 50px;
-	height: 50px;
+	width: 150px;
+	height: 150px;
 	display: inline-block;
 	padding: 10px;
-	margin: 3px;
+	margin: 5px;
 	overflow: hidden;
 	display: block;
 	float: left;
+	font-size: 80px;
+	text-align: center;
+	color: white;
+
 }
 
 .clear {
@@ -30,3 +42,33 @@ body {
 /*	border: 2px solid red;*/
 }
 
+#playerOne {
+	font-size: 35px;
+	border: 3px solid grey;
+	width: 200px;
+	float: left;
+	margin: -400px 0 0 60px;
+	color: white;
+}
+
+#playerTwo {
+	font-size: 35px;
+	border: 3px solid grey;
+	width: 200px;
+	float: right;
+	margin: -400px 60px 0 0;
+	color: white;
+}
+
+
+.button {
+	margin: 0 auto;
+	margin-top: 30px;
+	border: 3px solid black;
+	width: 110px;
+}
+
+
+#reset {
+	font-size: 35px;
+}

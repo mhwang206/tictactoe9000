@@ -32,40 +32,40 @@ angular.module("TicTacToe", ["firebase"])
 		xTurn = true;
 	};
 
+var X = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-iii.png";
+var O = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-ii.png";
 
 
 	$scope.attackCell = function(cell){
 		if ($scope.gameBoard[cell] == "" && gameOver == false) {
-			$scope.gameBoard[cell] = xTurn ? "X" : "O";
+			$scope.gameBoard[cell] = xTurn ? X : O;
 			xTurn = !xTurn;
 			// console.log(cell);	
 
-			if ($scope.gameBoard[cell] =="X") {
-				// playerOne.push("X")
+			if ($scope.gameBoard[cell] ==X) {
+				// playerOne.push(X)
 				// console.log("Player One: " + playerOne);
 				// console.log(playerOne[0], playerOne[1], playerOne[2]);	
-				trackingBoard[cell] = "X";
+				trackingBoard[cell] = X;
 				console.log(trackingBoard);
 			}
 
-			else if ($scope.gameBoard[cell] =="O") {
-				trackingBoard[cell] = "O";
-				// playerTwo.push("O")
+			else if ($scope.gameBoard[cell] ==O) {
+				trackingBoard[cell] = O;
+				// playerTwo.push(O)
 				// console.log("Player Two: " + playerTwo);	
 			}
 		
-
-
-			if (trackingBoard[0]=="X" && trackingBoard[1]=="X" && trackingBoard[2]=="X" ||
-				trackingBoard[3]=="X" && trackingBoard[4]=="X" && trackingBoard[5]=="X" ||
-				trackingBoard[6]=="X" && trackingBoard[7]=="X" && trackingBoard[8]=="X" ||
-				trackingBoard[0]=="X" && trackingBoard[3]=="X" && trackingBoard[6]=="X" ||
-				trackingBoard[1]=="X" && trackingBoard[4]=="X" && trackingBoard[7]=="X" ||
-				trackingBoard[2]=="X" && trackingBoard[5]=="X" && trackingBoard[8]=="X" ||
-				trackingBoard[0]=="X" && trackingBoard[4]=="X" && trackingBoard[8]=="X" ||
-				trackingBoard[2]=="X" && trackingBoard[4]=="X" && trackingBoard[6]=="X" 
-				// gameOver == false
-				) 
+			if (
+			trackingBoard[0]==X && trackingBoard[1]==X && trackingBoard[2]==X ||
+			trackingBoard[3]==X && trackingBoard[4]==X && trackingBoard[5]==X ||
+			trackingBoard[6]==X && trackingBoard[7]==X && trackingBoard[8]==X ||
+			trackingBoard[0]==X && trackingBoard[3]==X && trackingBoard[6]==X ||
+			trackingBoard[1]==X && trackingBoard[4]==X && trackingBoard[7]==X ||
+			trackingBoard[2]==X && trackingBoard[5]==X && trackingBoard[8]==X ||
+			trackingBoard[0]==X && trackingBoard[4]==X && trackingBoard[8]==X ||
+			trackingBoard[2]==X && trackingBoard[4]==X && trackingBoard[6]==X 
+			) 
 			{
 				gameOver = true;
 				// console.log("X wins");
@@ -75,24 +75,26 @@ angular.module("TicTacToe", ["firebase"])
 			}
 
 			if (
-			trackingBoard[0]=="O" && trackingBoard[1]=="O" && trackingBoard[2]=="O" ||
-			trackingBoard[3]=="O" && trackingBoard[4]=="O" && trackingBoard[5]=="O" ||
-			trackingBoard[6]=="O" && trackingBoard[7]=="O" && trackingBoard[8]=="O" ||
-			trackingBoard[0]=="O" && trackingBoard[3]=="O" && trackingBoard[6]=="O" ||
-			trackingBoard[1]=="O" && trackingBoard[4]=="O" && trackingBoard[7]=="O" ||
-			trackingBoard[2]=="O" && trackingBoard[5]=="O" && trackingBoard[8]=="O" ||
-			trackingBoard[0]=="O" && trackingBoard[4]=="O" && trackingBoard[8]=="O" ||
-			trackingBoard[2]=="O" && trackingBoard[4]=="O" && trackingBoard[6]=="O" 
-			// gameOver == false
+			trackingBoard[0]==O && trackingBoard[1]==O && trackingBoard[2]==O ||
+			trackingBoard[3]==O && trackingBoard[4]==O && trackingBoard[5]==O ||
+			trackingBoard[6]==O && trackingBoard[7]==O && trackingBoard[8]==O ||
+			trackingBoard[0]==O && trackingBoard[3]==O && trackingBoard[6]==O ||
+			trackingBoard[1]==O && trackingBoard[4]==O && trackingBoard[7]==O ||
+			trackingBoard[2]==O && trackingBoard[5]==O && trackingBoard[8]==O ||
+			trackingBoard[0]==O && trackingBoard[4]==O && trackingBoard[8]==O ||
+			trackingBoard[2]==O && trackingBoard[4]==O && trackingBoard[6]==O 
 			) 
-			{
-					
+			{	
 				gameOver = true;	
 				// console.log("O wins")
 				setTimeout(function() { alert("O wins!") }, 100);	
 				$scope.playerTwo = $scope.playerTwo + 1;
 				console.log($scope.playerTwo);
 			}
+
+			
+		
+			
 		}
  	}
 });

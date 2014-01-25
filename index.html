@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 
-<html x-ng-app="TicTacToe">
+<html x-ng-app="TicTacToe" x-ng-controller="gameBoardCtrl">
 	<head>
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="main.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 		<script src='https://cdn.firebase.com/v0/firebase.js'></script>
 		<script src='https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js'></script>
-		<script type="text/javascript" src="main.js">
-		</script>
+		<script type="text/javascript" src="main.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
 
 	</head>
-	<body x-ng-controller="gameBoardCtrl"> 
+	<body> 
 		<div id="gameBoard">
-			<div class="cell" x-ng-repeat="cell in gameBoard track by $index" x-ng-click="attackCell($index)" x-ng-class="{clear: ($index % 3 == 0)}">
+			<div class="cell" x-ng-repeat="cell in obj.board track by $index" x-ng-click="attackCell($index)" x-ng-class="{clear: ($index % 3 == 0)}">
 				
 				<img src="{{cell}}">
 			</div>
 		</div>
 
-				<div id="playerOne">
-					Player 1: {{playerOne}}
+<!--  <p ng-class="{strike: deleted, bold: important, red: error}">Map Syntax Example</p> -->
+<!--     <input type="checkbox" ng-model="error"> error (apply "red" class) -->
+
+				<div id="playerOne" x-ng-click="iAmTony()">
+					Tony
+					<br>
+					{{obj.playerOne}}
 				</div>
-				<div id="playerTwo">
-					Player 2: {{playerTwo}}
+				<div id="playerTwo" x-ng-click="iAmRhodey()">
+					Rhodey
+					<br>
+					{{obj.playerTwo}}
 				</div>
 
 		<div class="button">
-		<button id="reset" x-ng-click="reset()">Reset</button>
+		<button id="reset" x-ng-click="reset()">Restart</button>
 		</div>
+
+<!-- 		<div class="button">
+		<button id="changeBg" x-ng-click="changeBg()">Stage</button>
+		</div> -->
 	</body>
 </html>

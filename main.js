@@ -1,102 +1,172 @@
+var ticTacRef;
+var IDs;
+var tony;
+var rhodey;
+var token;
+
+
+var X = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-iii.png";
+var O = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-ii.png";
+// var stylePath = 'main2.css';
+
+
+
 angular.module("TicTacToe", ["firebase"])
-// function gameBoardCtrl($scope, $firebase){
-
-
 .controller("gameBoardCtrl", function($scope, $firebase){
-	$scope.gameBoard = ['','','','','','','','',''];
-	
-	var trackingBoard = ['','','','','','','','',''];
-	var ref = new Firebase("https://tictactoematt.firebaseio.com/");
-	// $scope.messages = $firebase(ref);
-	var myBoard = ref.child("Game 1");
-	myBoard.set({board: $scope.gameBoard, xTurn: true});
+
 	var winCombo = [[0,1,2],[3,4,5],[6,7,8],
 					[0,3,6],[1,4,7],[2,5,8],
 					[0,4,8],[2,4,6]
 				   ];
 
+				// $scope.changeBg = function(){
+			 //        if ($scope.stylePath == 'main.css') {
+			 //            $scope.stylePath = 'main2.css';
+			 //        }
+			 //        else {
+			 //            $scope.stylePath = 'main.css';
+			 //        }
+			 //    };
+
+	$scope.iAmTony = function(){
+		// tony = true;
+		tony = X;
+		var sound = new Audio('http://fsb3.zedge.net/dl/ringtone/dfe0f757771ee32bdf59de8a5a1a1221/iron_man_repulsor.mp3?ref=www&type=mc');
+					sound.play();
+
+	$scope.iAmRhodey = function(){
+		// rhodey = true;
+		rhodey = O;
+		var sound = new Audio('http://fsb3.zedge.net/dl/ringtone/dfe0f757771ee32bdf59de8a5a1a1221/iron_man_repulsor.mp3?ref=www&type=mc');
+					sound.play();
+
+	
+
+		if(tony == X && rhodey == O){
+		// console.log(tony);
+
+				ticTacRef = new Firebase("https://tictactoematt.firebaseio.com/"); //link to firebase
+				$scope.fbRoot = $firebase(ticTacRef);
+
+				$scope.fbRoot.$on("loaded", function() {
+					IDs = $scope.fbRoot.$getIndex();
+					if(IDs.length == 0)
+					{
+						$scope.fbRoot.$add({
+							board: ['','','','','','','','',''],
+							xTurn: true,
+							gameOver: false,
+							trackingBoard: ['','','','','','','','',''],
+							playerOne: 2,
+							playerTwo: 2
+						})
+						$scope.fbRoot.$on("change", function() {
+							IDs = $scope.fbRoot.$getIndex();
+							$scope.obj = $scope.fbRoot.$child(IDs[0])
+						})
+					}
+					else
+					{
+						$scope.obj = $scope.fbRoot.$child(IDs[0]);
+					}
+				});
+				// var myBoard = ticTacRef.child("Game 1");
+				// myBoard.set({board: $scope.obj.board, xTurn: true});
+
+				$scope.reset = function(){
+					$scope.obj.board = ['','','','','','','','',''];
+					$scope.obj.trackingBoard = ['','','','','','','','',''];
+					$scope.obj.gameOver = false;
+					$scope.obj.xTurn = true;
+					$scope.obj.$save();
+					var sound = new Audio('http://fsb3.zedge.net/dl/ringtone/dfe0f757771ee32bdf59de8a5a1a1221/iron_man_repulsor.mp3?ref=www&type=mc');
+					sound.play();
+					//ex 2
+					// new Audio(soundURL).play();
+				};
+				
+
+				function xTaken()
+				{
+					if ($scope.obj.board.indexOf(X)==-1)
+							return true;
+					else if(token != X && $scope.obj.xTurn)
+						return true;
+					else 
+						return false;
+					}
+				}
+
+				function oTaken()
+				{
+					if(token !=X && $scope.obj.xTurn == false)
+						return true;
+				} 
 
 
+				$scope.attackCell = function(cell){
 
-	var xTurn = true;
-	var gameOver = false;
-	$scope.playerOne = 0;
-	$scope.playerTwo = 0;
+					if (xTaken() || oTaken() && $scope.obj.board[cell] == "" && $scope.obj.gameOver == false) {
+						$scope.obj.board[cell] = $scope.obj.xTurn ? X : O;
+						$scope.obj.xTurn = !$scope.obj.xTurn;
+						// console.log(cell);	
 
-	$scope.reset = function(){
-		// alert("hello");
-		// console.log("Hello");
-		$scope.gameBoard = ['','','','','','','','',''];
-		trackingBoard = ['','','','','','','','',''];
-		gameOver = false;
-		xTurn = true;
-	};
+						if ($scope.obj.board[cell] ==X) {
+							console.log("O's turn");
+							$scope.obj.trackingBoard[cell] = X;
+							// console.log($scope.obj.trackingBoard);
+						}
 
-var X = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-iii.png";
-var O = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-ii.png";
+						else if ($scope.obj.board[cell] ==O) {
+							console.log("X's turn");
+							$scope.obj.trackingBoard[cell] = O;
+						}
+					
+						if (
+						$scope.obj.trackingBoard[0]==X && $scope.obj.trackingBoard[1]==X && $scope.obj.trackingBoard[2]==X ||
+						$scope.obj.trackingBoard[3]==X && $scope.obj.trackingBoard[4]==X && $scope.obj.trackingBoard[5]==X ||
+						$scope.obj.trackingBoard[6]==X && $scope.obj.trackingBoard[7]==X && $scope.obj.trackingBoard[8]==X ||
+						$scope.obj.trackingBoard[0]==X && $scope.obj.trackingBoard[3]==X && $scope.obj.trackingBoard[6]==X ||
+						$scope.obj.trackingBoard[1]==X && $scope.obj.trackingBoard[4]==X && $scope.obj.trackingBoard[7]==X ||
+						$scope.obj.trackingBoard[2]==X && $scope.obj.trackingBoard[5]==X && $scope.obj.trackingBoard[8]==X ||
+						$scope.obj.trackingBoard[0]==X && $scope.obj.trackingBoard[4]==X && $scope.obj.trackingBoard[8]==X ||
+						$scope.obj.trackingBoard[2]==X && $scope.obj.trackingBoard[4]==X && $scope.obj.trackingBoard[6]==X 
+						) 
+						{
+							$scope.obj.gameOver = true;
+							// console.log("X wins");
+							setTimeout(function() { alert("Tony wins!") }, 100);
+							$scope.obj.playerTwo = $scope.obj.playerTwo - 1;
+							console.log($scope.obj.playerOne);
+						}
 
+						if (
+						$scope.obj.trackingBoard[0]==O && $scope.obj.trackingBoard[1]==O && $scope.obj.trackingBoard[2]==O ||
+						$scope.obj.trackingBoard[3]==O && $scope.obj.trackingBoard[4]==O && $scope.obj.trackingBoard[5]==O ||
+						$scope.obj.trackingBoard[6]==O && $scope.obj.trackingBoard[7]==O && $scope.obj.trackingBoard[8]==O ||
+						$scope.obj.trackingBoard[0]==O && $scope.obj.trackingBoard[3]==O && $scope.obj.trackingBoard[6]==O ||
+						$scope.obj.trackingBoard[1]==O && $scope.obj.trackingBoard[4]==O && $scope.obj.trackingBoard[7]==O ||
+						$scope.obj.trackingBoard[2]==O && $scope.obj.trackingBoard[5]==O && $scope.obj.trackingBoard[8]==O ||
+						$scope.obj.trackingBoard[0]==O && $scope.obj.trackingBoard[4]==O && $scope.obj.trackingBoard[8]==O ||
+						$scope.obj.trackingBoard[2]==O && $scope.obj.trackingBoard[4]==O && $scope.obj.trackingBoard[6]==O 
+						) 
+						{	
+							$scope.obj.gameOver = true;	
+							// console.log("O wins")
+							$scope.obj.playerOne = $scope.obj.playerOne - 1;				
+							console.log($scope.obj.playerTwo);
+						}
 
-	$scope.attackCell = function(cell){
-		if ($scope.gameBoard[cell] == "" && gameOver == false) {
-			$scope.gameBoard[cell] = xTurn ? X : O;
-			xTurn = !xTurn;
-			// console.log(cell);	
-
-			if ($scope.gameBoard[cell] ==X) {
-				// playerOne.push(X)
-				// console.log("Player One: " + playerOne);
-				// console.log(playerOne[0], playerOne[1], playerOne[2]);	
-				trackingBoard[cell] = X;
-				console.log(trackingBoard);
+						if ($scope.obj.playerTwo == 1){
+							return "red"
+							var sound = new Audio('http://fsa3.zedge.net/dl/ringtone/77e411564591f0edbe5018da3bec754a/ironman_backup_power.mp3?ref=www&type=mc');
+							sound.play();
+						}
+						$scope.obj.$save();
+					}
+				}	
 			}
-
-			else if ($scope.gameBoard[cell] ==O) {
-				trackingBoard[cell] = O;
-				// playerTwo.push(O)
-				// console.log("Player Two: " + playerTwo);	
-			}
-		
-			if (
-			trackingBoard[0]==X && trackingBoard[1]==X && trackingBoard[2]==X ||
-			trackingBoard[3]==X && trackingBoard[4]==X && trackingBoard[5]==X ||
-			trackingBoard[6]==X && trackingBoard[7]==X && trackingBoard[8]==X ||
-			trackingBoard[0]==X && trackingBoard[3]==X && trackingBoard[6]==X ||
-			trackingBoard[1]==X && trackingBoard[4]==X && trackingBoard[7]==X ||
-			trackingBoard[2]==X && trackingBoard[5]==X && trackingBoard[8]==X ||
-			trackingBoard[0]==X && trackingBoard[4]==X && trackingBoard[8]==X ||
-			trackingBoard[2]==X && trackingBoard[4]==X && trackingBoard[6]==X 
-			) 
-			{
-				gameOver = true;
-				// console.log("X wins");
-				setTimeout(function() { alert("X wins!") }, 100);
-				$scope.playerOne = $scope.playerOne + 1;
-				console.log($scope.playerOne);
-			}
-
-			if (
-			trackingBoard[0]==O && trackingBoard[1]==O && trackingBoard[2]==O ||
-			trackingBoard[3]==O && trackingBoard[4]==O && trackingBoard[5]==O ||
-			trackingBoard[6]==O && trackingBoard[7]==O && trackingBoard[8]==O ||
-			trackingBoard[0]==O && trackingBoard[3]==O && trackingBoard[6]==O ||
-			trackingBoard[1]==O && trackingBoard[4]==O && trackingBoard[7]==O ||
-			trackingBoard[2]==O && trackingBoard[5]==O && trackingBoard[8]==O ||
-			trackingBoard[0]==O && trackingBoard[4]==O && trackingBoard[8]==O ||
-			trackingBoard[2]==O && trackingBoard[4]==O && trackingBoard[6]==O 
-			) 
-			{	
-				gameOver = true;	
-				// console.log("O wins")
-				setTimeout(function() { alert("O wins!") }, 100);	
-				$scope.playerTwo = $scope.playerTwo + 1;
-				console.log($scope.playerTwo);
-			}
-
-			
-		
-			
-		}
- 	}
+		} 
 });
 
 

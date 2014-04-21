@@ -5,8 +5,8 @@ var rhodey;
 var token;
 
 
-var X = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-iii.png";
-var O = "http://icons.iconseeker.com/png/fullsize/ironman/ironman-m-ii.png";
+var X = "http://i.imgur.com/LJecj6h.png?1";
+var O = "http://i.imgur.com/iI26mSz.png?1";
 // var stylePath = 'main2.css';
 
 
@@ -28,26 +28,28 @@ angular.module("TicTacToe", ["firebase"])
 			 //        }
 			 //    };
 
-	$scope.iAmTony = function(){
-		// tony = true;
+	$scope.iAmTony = function()
+	{
+		var sound = new Audio('iron_man_repulsor 2.mp3');
+					sound.play();
 		tony = X;
-		var sound = new Audio('http://fsb3.zedge.net/dl/ringtone/dfe0f757771ee32bdf59de8a5a1a1221/iron_man_repulsor.mp3?ref=www&type=mc');
-					sound.play();
-
-	$scope.iAmRhodey = function(){
-		// rhodey = true;
-		rhodey = O;
-		var sound = new Audio('http://fsb3.zedge.net/dl/ringtone/dfe0f757771ee32bdf59de8a5a1a1221/iron_man_repulsor.mp3?ref=www&type=mc');
-					sound.play();
-
 	
 
-		if(tony == X && rhodey == O){
-		// console.log(tony);
+	$scope.iAmRhodey = function()
+	{
+		var sound = new Audio('iron_man_repulsor 2.mp3');
+					sound.play();
+		var sound = new Audio('bgMusic.mp3');
+					sound.play();
+		rhodey = O;
+	
 
+
+		if(tony == X && rhodey == O)
+		{
+			console.log("ran")
 				ticTacRef = new Firebase("https://tictactoematt.firebaseio.com/"); //link to firebase
 				$scope.fbRoot = $firebase(ticTacRef);
-
 				$scope.fbRoot.$on("loaded", function() {
 					IDs = $scope.fbRoot.$getIndex();
 					if(IDs.length == 0)
@@ -57,8 +59,8 @@ angular.module("TicTacToe", ["firebase"])
 							xTurn: true,
 							gameOver: false,
 							trackingBoard: ['','','','','','','','',''],
-							playerOne: 2,
-							playerTwo: 2
+							playerOne: 5,
+							playerTwo: 5
 						})
 						$scope.fbRoot.$on("change", function() {
 							IDs = $scope.fbRoot.$getIndex();
@@ -79,7 +81,7 @@ angular.module("TicTacToe", ["firebase"])
 					$scope.obj.gameOver = false;
 					$scope.obj.xTurn = true;
 					$scope.obj.$save();
-					var sound = new Audio('http://fsb3.zedge.net/dl/ringtone/dfe0f757771ee32bdf59de8a5a1a1221/iron_man_repulsor.mp3?ref=www&type=mc');
+					var sound = new Audio('iron_man_repulsor 2.mp3');
 					sound.play();
 					//ex 2
 					// new Audio(soundURL).play();
@@ -106,7 +108,13 @@ angular.module("TicTacToe", ["firebase"])
 
 				$scope.attackCell = function(cell){
 
-					if (xTaken() || oTaken() && $scope.obj.board[cell] == "" && $scope.obj.gameOver == false) {
+					if (xTaken() || oTaken() && 
+						$scope.obj.playerTwo != 0 &&
+						$scope.obj.playerOne != 0 &&
+						$scope.obj.board[cell] == "" && 
+						$scope.obj.gameOver == false 
+						)
+						{
 						$scope.obj.board[cell] = $scope.obj.xTurn ? X : O;
 						$scope.obj.xTurn = !$scope.obj.xTurn;
 						// console.log(cell);	
@@ -115,11 +123,15 @@ angular.module("TicTacToe", ["firebase"])
 							console.log("O's turn");
 							$scope.obj.trackingBoard[cell] = X;
 							// console.log($scope.obj.trackingBoard);
+							var sound = new Audio('hit1.mp3');
+							sound.play();
 						}
 
 						else if ($scope.obj.board[cell] ==O) {
 							console.log("X's turn");
 							$scope.obj.trackingBoard[cell] = O;
+							var sound = new Audio('hit2.mp3');
+							sound.play();
 						}
 					
 						if (
@@ -131,13 +143,12 @@ angular.module("TicTacToe", ["firebase"])
 						$scope.obj.trackingBoard[2]==X && $scope.obj.trackingBoard[5]==X && $scope.obj.trackingBoard[8]==X ||
 						$scope.obj.trackingBoard[0]==X && $scope.obj.trackingBoard[4]==X && $scope.obj.trackingBoard[8]==X ||
 						$scope.obj.trackingBoard[2]==X && $scope.obj.trackingBoard[4]==X && $scope.obj.trackingBoard[6]==X 
+				
 						) 
 						{
 							$scope.obj.gameOver = true;
-							// console.log("X wins");
 							setTimeout(function() { alert("Tony wins!") }, 100);
 							$scope.obj.playerTwo = $scope.obj.playerTwo - 1;
-							console.log($scope.obj.playerOne);
 						}
 
 						if (
@@ -152,9 +163,8 @@ angular.module("TicTacToe", ["firebase"])
 						) 
 						{	
 							$scope.obj.gameOver = true;	
-							// console.log("O wins")
+							setTimeout(function() { alert("Rhodey wins!") }, 100);
 							$scope.obj.playerOne = $scope.obj.playerOne - 1;				
-							console.log($scope.obj.playerTwo);
 						}
 
 						if ($scope.obj.playerTwo == 1){
@@ -165,8 +175,10 @@ angular.module("TicTacToe", ["firebase"])
 						$scope.obj.$save();
 					}
 				}	
+
 			}
-		} 
+		}
+
 });
 
 

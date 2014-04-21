@@ -1,31 +1,25 @@
-body {
+/*body {
 	background-color: black;
 	background-image: url("http://customize.org/thumbnails/larger/104469.jpg");
-/*	background-image: url("http://i1.ytimg.com/vi/Ab1NDUCYb7k/maxresdefault.jpg");*/
-/*	background-image: url("http://fc03.deviantart.net/fs70/i/2012/157/2/8/iron_man_vs_war_machine_by_sharonmudz-d52htrd.jpg");*/
-/*	background-image: url("	http://collider.com/wp-content/uploads/iorn-man-and-war-machine-iron-man-2.jpg");*/
-
-
-		
-
-/*background-image: url("http://www.zeroengineeringeu.com/news/img/20100609123105_6.jpg");
-background-image: url("http://www.funwallz.com/image/jarvis-shield-interface-edreyes-dszy-hd-wallpaper-29782.jpg");
-background-image: url("http://fc01.deviantart.net/fs71/i/2013/077/4/9/iron_man__hall_of_armor___tony_stark_s_garage_by_fordgt-d5ygpia.jpg");*/
-
-	
 	background-size: cover;
+}*/
+
+body {
+	background-image:url("http://customize.org/thumbnails/larger/104469.jpg");
+	background-color: black;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:center;	
 }
 
 
 #gameBoard {
-
-/*	border: 3px dotted white;*/
 	width: 550px;
 	height: 560px;
 	margin: 0 auto;
-	margin-top: 100px;
-
+	margin-top: 100px;	
 }
+
 
 img {
 	width: 160px;
@@ -47,8 +41,8 @@ img {
 	color: white;
 	border-radius: 10px;
 	box-shadow: 2px 2px 2px #888888;
-
 }
+
 
 .cell:hover {
 	border: 3px solid white;
@@ -131,6 +125,7 @@ img {
 }
 
 
-.red {
+.changeColor {
     color: red;
+    border: 3px solid black;
 }

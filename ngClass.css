@@ -1,0 +1,14 @@
+.strike {
+  text-decoration: line-through;
+}
+.bold {
+    font-weight: bold;
+}
+.color {
+    color: red;
+    border: 3px solid black;
+}
+
+.video {
+	display: none;
+}

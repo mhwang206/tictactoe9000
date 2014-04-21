@@ -12,6 +12,12 @@
 
 	</head>
 	<body> 
+
+<!-- 		<video controls autoplay>
+  		<source src="intro.mp4" type="video/mp4">
+  		<source src="movie.ogg" type="video/ogg">
+		</video> -->
+
 		<div id="gameBoard">
 			<div class="cell" x-ng-repeat="cell in obj.board track by $index" x-ng-click="attackCell($index)" x-ng-class="{clear: ($index % 3 == 0)}">
 				
@@ -22,16 +28,16 @@
 <!--  <p ng-class="{strike: deleted, bold: important, red: error}">Map Syntax Example</p> -->
 <!--     <input type="checkbox" ng-model="error"> error (apply "red" class) -->
 
-				<div id="playerOne" x-ng-click="iAmTony()">
-					Tony
-					<br>
-					{{obj.playerOne}}
-				</div>
-				<div id="playerTwo" x-ng-click="iAmRhodey()">
-					Rhodey
-					<br>
-					{{obj.playerTwo}}
-				</div>
+		<div id="playerOne" x-ng-click="iAmTony()">
+			Tony
+			<br>
+			{{obj.playerOne}}
+		</div>
+		<div id="playerTwo" x-ng-click="iAmRhodey()">
+			Rhodey
+			<br>
+			{{obj.playerTwo}}		
+		</div>
 
 		<div class="button">
 		<button id="reset" x-ng-click="reset()">Restart</button>

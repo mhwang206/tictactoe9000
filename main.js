@@ -148,7 +148,7 @@ angular.module("TicTacToe", ["firebase"])
 						{
 							$scope.obj.gameOver = true;
 							setTimeout(function() { alert("Tony wins!") }, 100);
-							$scope.obj.playerTwo = $scope.obj.playerTwo - 1;
+							$scope.obj.playerOne = $scope.obj.playerOne + 1;
 						}
 
 						if (
@@ -164,7 +164,7 @@ angular.module("TicTacToe", ["firebase"])
 						{	
 							$scope.obj.gameOver = true;	
 							setTimeout(function() { alert("Rhodey wins!") }, 100);
-							$scope.obj.playerOne = $scope.obj.playerOne - 1;				
+							$scope.obj.playerTwo = $scope.obj.playerTwo + 1;				
 						}
 
 						if ($scope.obj.playerTwo == 1){
